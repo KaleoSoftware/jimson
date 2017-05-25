@@ -76,9 +76,11 @@ module Jimson
       raise Client::Error::InvalidResponse.new if !valid_response?(data)
 
       if !!data['error']
+        id = data['id']
         code = data['error']['code']
         msg = data['error']['message']
-        raise Client::Error::ServerError.new(code, msg)
+        data = data['error']['data']
+        raise Client::Error::ServerError.new(id, code, msg, data)
       end
 
       return data['result']

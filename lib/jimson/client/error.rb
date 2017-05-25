@@ -9,12 +9,17 @@ module Jimson
 
       class InvalidJSON < StandardError
         def initialize(json)
+          @json = json
           super("Couldn't parse JSON string received from server:\n#{json}")
         end
       end
 
       class ServerError < StandardError
-        def initialize(code, message)
+        def initialize(id, code, message, data)
+          @id = id
+          @code = code
+          @message = message
+          @data = data
           super("Server error #{code}: #{message}")
         end
       end
