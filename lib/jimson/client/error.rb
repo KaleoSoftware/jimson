@@ -15,12 +15,12 @@ module Jimson
       end
 
       class ServerError < StandardError
+        attr_reader :id, :code, :message, :data
         def initialize(id, code, message, data)
           @id = id
           @code = code
           @message = message
           @data = data
-          super("Server error #{code}: #{message}")
         end
       end
     end
